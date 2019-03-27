@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>维修管理</title>
+    <#include "/header.html">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <#if shiro.hasPermission("sys:utsservers:save")>
+        <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+    </#if>
+    <a class="btn layui-btn-primary" @click="add">&nbsp;批量导入</a>
+    <br>
+    <div class="clearfix"> </div>
+    &nbsp;
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">所属项目</label>
+            <div class="form-control">
+                <select v-model="q.projectName" @keyup.enter="query" >
+                    <option value=""></option>
+                    <option >高德置地春</option>
+                    <option >高德置地夏</option>
+                    <option >高德置地秋</option>
+                    <option >高德置地冬</option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <br>
+    <div class="clearfix"> </div>
+        <div class="grid-btn">
+            <div class="form-group col-sm-2">
+                <input type="text" class="form-control" v-model="q.serverCode" @keyup.enter="query" placeholder="服务编号">
+            </div>
+            <div class="form-group col-sm-2">
+                <input type="text" class="form-control" v-model="q.serverName" @keyup.enter="query" placeholder="服务名称">
+            </div>
+            <div class="form-group col-sm-2">
+                <input type="text" class="form-control" v-model="q.projectId" @keyup.enter="query" placeholder="项目Id">
+            </div>
+            <a class="btn btn-default" @click="query"><i class="fa fa-check-circle">&nbsp;筛选</i></a>
+
+			<#if shiro.hasPermission("sys:utsservers:update")>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			</#if>
+			<#if shiro.hasPermission("sys:utsservers:delete")>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			</#if>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">{{title}}</div>
+        <form class="form-horizontal">
+            <div class="form-group">
+                        <div class="col-sm-2 control-label">*所属项目ID</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="utsServers.projectId" placeholder=""/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">*服务名称</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="utsServers.serverName" placeholder=""/>
+                        </div>
+                    </div>
+
+            <div class="form-group">
+                        <div class="col-sm-2 control-label">*单位</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="utsServers.unit" placeholder=""/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">*综合单价</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="utsServers.price" placeholder=""/>
+                            </div>元
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">备注</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="utsServers.remark" placeholder=""/>
+                        </div>
+                    </div>
+
+							            <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" id="btnSaveOrUpdate" data-loading-text="保存中..." @click="saveOrUpdate" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/sys/utsservers.js?_${.now?long}"></script>
+
+</body>
+</html>
