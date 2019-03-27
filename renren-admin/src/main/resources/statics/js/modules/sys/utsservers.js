@@ -8,7 +8,7 @@ $(function () {
             { label: '单位', name: 'unit', index: 'unit', width: 80 },
             { label: '单价（元）', name: 'price', index: 'price', width: 80 },
             { label: '备注', name: 'remark', index: 'remark', width: 80 },
-            { label: '所属项目ID', name: 'projectId', index: 'project_id', width: 80 },
+            { label: '所属项目名称', name: 'projectId', index: 'project_id', width: 80 },
 			{ label: '添加时间', name: 'createTime', index: 'create_time', width: 80 },
         ],
 		viewrecords: true,
@@ -42,17 +42,29 @@ var vm = new Vue({
 	el:'#rrapp',
 	data:{
         q:{
-            projectName:["1","2","3"],
             projectId: null,
             serverName: null,
             serverCode: null
         },
 		showList: true,
 		title: null,
+        projects:[],
+        currentProject:"",
 		utsServers: {
         }
 	},
+    mounted:function(){
+	  this.$nextTick(function () {
+          vm.getprojects();
+      })
+    },
 	methods: {
+	    //
+	    getprojects:function(){
+            $.get(baseURL+"sys/utsservers/getprojects",function (r) {
+                vm.projects = r.projects;
+            });
+        },
 		query: function () {
 			vm.reload();
 		},

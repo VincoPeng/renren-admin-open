@@ -1,8 +1,12 @@
 package io.renren.modules.sys.service.impl;
 
 import io.renren.common.utils.Constant;
+import io.renren.modules.sys.entity.Project;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -18,6 +22,8 @@ import io.renren.modules.sys.service.UtsServersService;
 @Service("utsServersService")
 public class UtsServersServiceImpl extends ServiceImpl<UtsServersDao, UtsServersEntity> implements UtsServersService {
 
+    @Autowired
+    private UtsServersDao utsServersDao;
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         //新建对象查询字段
@@ -35,6 +41,12 @@ public class UtsServersServiceImpl extends ServiceImpl<UtsServersDao, UtsServers
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<Project> getprojects() {
+
+        return utsServersDao.getprojects();
     }
 
 }

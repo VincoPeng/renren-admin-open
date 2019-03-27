@@ -1,9 +1,11 @@
 package io.renren.modules.sys.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import io.renren.common.validator.ValidatorUtils;
+import io.renren.modules.sys.entity.Project;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,6 +54,15 @@ public class UtsServersController {
         UtsServersEntity utsServers = utsServersService.getById(id);
 
         return R.ok().put("utsServers", utsServers);
+    }
+
+    /**
+     * 获取项目信息
+     */
+    @RequestMapping("/getprojects")
+    public R getProjects(){
+        List<Project> projects = utsServersService.getprojects();
+        return R.ok().put("projects", projects);
     }
 
     /**

@@ -1,8 +1,12 @@
 package io.renren.modules.sys.dao;
 
+import io.renren.modules.sys.entity.Project;
 import io.renren.modules.sys.entity.UtsServersEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * 
@@ -13,5 +17,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UtsServersDao extends BaseMapper<UtsServersEntity> {
-	
+    @Select("select project_id,project_name from tb_goods")
+    List<Project> getprojects();
 }
